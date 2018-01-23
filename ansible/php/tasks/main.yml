@@ -1,0 +1,26 @@
+# phpのインストール
+---
+  - name: EPELリポジトリをインストール
+    yum : name=epel-release state=present
+    tags:
+      - php
+
+  - name: Remiリポジトリをインストール
+    yum: name=https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    tags:
+      - php
+  
+  - name: phpをインストール
+    yum: name={{ item }} state=present enablerepo=remi,epel
+    with_items:
+      - php71
+      - php 
+      - php-devel 
+      - php-process
+      - php-pdo 
+      - php-pgsql
+      - php-mbstring
+      - php-mcrypt
+      - php-common
+    tags:
+      - php

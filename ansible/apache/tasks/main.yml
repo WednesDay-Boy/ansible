@@ -1,0 +1,5 @@
+# apach httpdのインストール
+---
+  - name: Apacheをインストール
+    yum: name=httpd state=latest
+    tags: -apache

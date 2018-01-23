@@ -1,0 +1,4 @@
+# apach httpdの再起動
+---
+  - name: httpdの再起動
+    service: name=httpd state=restarted enabled=yes

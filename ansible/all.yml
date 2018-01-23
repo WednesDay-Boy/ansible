@@ -1,0 +1,22 @@
+# 構成管理
+---
+  - hosts: localhost
+    become: yes
+    vars: 
+      base_timezone: Asia/Tokyo
+    tasks:
+      - name: タイムゾーンの設定
+        command: timedatectl set-timezone {{ base_timezone }}
+
+      - name: 基本パッケージをインストール
+        yum: name={{ item }} state=present
+        with_items:
+          - git
+          - ntp
+
+      - name: ntpdを起動して、自動起動の有効化
+        service: name=ntpd state=restarted enabled=yes
+      
+    roles:
+      - apache
+      - php
