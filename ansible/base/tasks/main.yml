@@ -1,0 +1,46 @@
+# 基本構築
+---
+  - name: タイムゾーンの設定
+    command: timedatectl set-timezone Asia/Tokyo
+    tags:
+      - base
+
+  - name: 基本パッケージをインストール
+    yum: name={{ item }} state=present
+    with_items:
+      - git
+      - ntp
+      - gcc
+    tags:
+      - base
+
+  - name: ntpdを起動して、自動起動の有効化
+    service: name=ntpd state=restarted enabled=yes
+    tags:
+      - base
+      
+  - name: firewallの起動
+    command: systemctl restart firewalld.service
+    tags:
+      - base
+  
+  - name: firewallの自動起動設定
+    command: systemctl enable firewalld.service
+    tags:
+      - base
+  
+  - name: firewallにhttpsサービスを追加する
+    command: firewall-cmd --add-service=https --zone=public --permanent
+    tags:
+      - base
+  
+  - name: firewallにhttpサービスを追加する
+    command: firewall-cmd --add-service=http --zone=public --permanent
+    tags:
+      - base
+  
+  - name: firewallのリロード
+    command: firewall-cmd --reload
+    tags:
+      - base
+
