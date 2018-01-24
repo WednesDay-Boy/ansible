@@ -11,9 +11,8 @@
       - php
   
   - name: phpをインストール
-    yum: name={{ item }} state=present enablerepo=remi,epel
+    yum: name={{ item }} state=present enablerepo=remi-php71
     with_items:
-      - php71
       - php 
       - php-devel 
       - php-process
@@ -21,6 +20,8 @@
       - php-pgsql
       - php-mbstring
       - php-mcrypt
+      - php-xdebug
       - php-common
+      - php-opcache
     tags:
       - php
