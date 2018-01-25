@@ -1,0 +1,45 @@
+# yumで使うリポジトリの追加
+---
+  - name: EPELリポジトリがインストール済みかどうか
+    shell: rpm -q epel-release
+    register: epel_release_status # シェルの実行結果を格納する
+    failed_when: False
+    changed_when: False
+    tags:
+      - repo
+
+  - name: EPELリポジトリをインストール
+    yum : name=epel-release state=present
+    when: epel_release_status|failed
+    tags:
+      - repo
+  
+  - name: Remiリポジトリがインストール済みかどうか
+    shell: rpm -q remi-release
+    register: remi_release_status # シェルの実行結果を格納する
+    failed_when: False
+    changed_when: False
+    tags:
+      - repo
+   
+  - name: Remiリポジトリをインストール
+    yum: name=https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+    when: remi_release_status|failed
+    tags:
+      - repo
+  
+  - name: IUSリポジトリがインストール済みかどうか
+    shell: rpm -q ius-release
+    register: ius_release_status # シェルの実行結果を格納する
+    failed_when: False
+    changed_when: False
+    tags:
+      - repo
+  
+  - name: IUSリポジトリのインストール
+    yum: name=https://centos7.iuscommunity.org/ius-release.rpm
+    when: ius_release_status|failed 
+    tags:
+      - repo
+
+  
