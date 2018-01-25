@@ -1,17 +1,17 @@
 # apach httpdのインストール
 ---  
   - name: nghttp2のインストール
-    yum: name=nghttp2 state=latest enablerepo=epel
+    yum: name=nghttp2 state=present enablerepo=epel
     tags:
       - apache
   
   - name: libnghttp2のインストール
-    yum: name=libnghttp2 state=latest enablerepo=epel
+    yum: name=libnghttp2 state=present enablerepo=epel
     tags:
       - apache
 
   - name: Apacheをインストール
-    yum: name={{ item }} state=latest disablerepo=base,epel,updates enablerepo=ius
+    yum: name={{ item }} state=present disablerepo=base,epel,updates enablerepo=ius
     with_items:
       - httpd
       - httpd-devel
