@@ -1,5 +1,29 @@
 # phpのインストール
----  
+---
+  - name: unixODBCのインストール
+    yum: name={{ item }} state=present
+    with_items:
+      - unixODBC
+      - unixODBC-devel
+    tags:
+      - php
+    
+  - name: unixODBC-utf16 unixODBC-utf16-develをアンインストール
+    yum: name={{ item }} state=removed
+    with_items:
+      - unixODBC-utf16
+      - unixODBC-utf16-devel
+    tags:
+      - php
+  
+  - name: msodbcsql,mssql-toolsのインストール
+    yum: name={{ item }} state=present
+    with_items:
+      - msodbcsql
+      - mssql-tools
+    tags:
+      - php
+  
   - name: phpをインストール
     yum: name={{ item }} state=present enablerepo=remi-php71
     with_items:
@@ -13,5 +37,6 @@
       - php-xdebug
       - php-common
       - php-opcache
+      - php-sqlsrv
     tags:
       - php

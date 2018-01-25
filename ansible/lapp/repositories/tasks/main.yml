@@ -2,7 +2,7 @@
 ---
   - name: EPELリポジトリがインストール済みかどうか
     shell: rpm -q epel-release
-    register: epel_release_status # シェルの実行結果を格納する
+    register: epel_release_status
     failed_when: False
     changed_when: False
     tags:
@@ -16,7 +16,7 @@
   
   - name: Remiリポジトリがインストール済みかどうか
     shell: rpm -q remi-release
-    register: remi_release_status # シェルの実行結果を格納する
+    register: remi_release_status
     failed_when: False
     changed_when: False
     tags:
@@ -30,7 +30,7 @@
   
   - name: IUSリポジトリがインストール済みかどうか
     shell: rpm -q ius-release
-    register: ius_release_status # シェルの実行結果を格納する
+    register: ius_release_status
     failed_when: False
     changed_when: False
     tags:
@@ -41,5 +41,8 @@
     when: ius_release_status|failed 
     tags:
       - repo
-
   
+  - name: packages-microsoft-com-prodリポジトリの追加
+    shell: curl https://packages.microsoft.com/config/rhel/7/prod.repo > /etc/yum.repos.d/mssql-release.repo
+    tags:
+      - repo
