@@ -1,10 +1,5 @@
 # apach httpdのインストール
----
-  - name: IUSリポジトリをインストール
-    yum: name=https://centos7.iuscommunity.org/ius-release.rpm
-    tags:
-      - apache
-  
+---  
   - name: nghttp2のインストール
     yum: name=nghttp2 state=latest enablerepo=epel
     tags:
